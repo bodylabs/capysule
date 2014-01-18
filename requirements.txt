@@ -1,2 +1,2 @@
 requests
-booby
+-e git+https://github.com/bodylabs/booby@0.5.0+patched#egg=booby
