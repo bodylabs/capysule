@@ -2,13 +2,45 @@ from booby import Model, fields
 from wren.collection import Collection
 
 
-class Person(Model):
+class Person(Model):        
+    class Contacts(Model):
+        class Address(Model):
+            type = fields.String()
+            street = fields.String()
+            city = fields.String()
+            state = fields.String()
+            zip = fields.String()
+            country = fields.String()
+
+        class Email(Model):
+            type = fields.String()
+            email_address = fields.String(source='emailAddress')
+
+        class Phone(Model):
+            type = fields.String()
+            phone_number = fields.String(source='phoneNumber')
+
+        class Website(Model):
+            type = fields.String()
+            web_service = fields.String(source='webService',
+                choices='URL SKYPE TWITTER FACEBOOK LINKED_IN XING FEED GOOGLE_PLUS FLICKR GITHUB YOUTUBE'.split(' ')
+            )
+            web_address = fields.String(source='webAddress')
+
+        address = fields.Embedded(Address)
+        email = fields.Embedded(Email)
+        phone = fields.Embedded(Phone)
+        website = fields.Embedded(Website)
+
     id = fields.Integer(primary=True)
     title = fields.String()
     first_name = fields.String(source='firstName')
     last_name = fields.String(source='lastName')
     job_title = fields.String(source='jobTitle')
+    organisation_name = fields.String(source='organisationName')
+    contacts = fields.Embedded(Contacts)
     about = fields.String()
+
     created_on = fields.String(source='createdOn', read_only=True)
     updated_on = fields.String(source='updatedOn', read_only=True)
 
