@@ -1,4 +1,6 @@
+import json, requests
 from urllib import splitquery
+from urlparse import urlparse as parse
 from wren import errors
 
 
@@ -18,6 +20,9 @@ class Collection(object):
             return result
         else:
             return self.model.from_dict(data)
+
+    def serialize(self, obj):
+        return dict(obj)
 
     def all(self):
         response = self.client.fetch(self.url)
@@ -43,7 +48,9 @@ class Collection(object):
         url = getattr(self.model, '_url', self.url)
 
         if callable(url):
-            return url(id_)
+           return url(id_)
+
+
 
         url, query = splitquery(url)
 
@@ -54,41 +61,62 @@ class Collection(object):
 
         return url
 
-    # def add(self, obj, callback):
-    #     def on_response(response):
-    #         if response.code >= httplib.BAD_REQUEST:
-    #             callback(None, errors.HTTPError(response.code))
-    #             return
+    def _parse_url(self, url):
+        parse_url = getattr(self.model, '_parse_url', None)
 
-    #         if hasattr(obj, 'parse'):
-    #             resource = obj.parse(response.body, response.headers)
-    #         else:
-    #             resource = escape.json_decode(response.body)
+        if callable(parse_url):
+            return parse_url(url)
 
-    #         try:
-    #             obj.update(resource)
-    #         except Exception as error:
-    #             callback(None, error)
-    #         else:
-    #             obj._persisted = True
-    #             callback(obj, None)
+        parts = url.split('/')
+        if len(parts):
+            return parts[-1]
+        else:
+            return None
 
-    #     if getattr(obj, '_persisted', False) is True:
-    #         url = self._url(self._id(obj))
-    #         method = 'PUT'
-    #     else:
-    #         url = self.url
-    #         method = 'POST'
+    def add(self, obj):
+        if getattr(obj, '_persisted', False) is True:
+            url = self._url(self._id(obj))
+            method = 'PUT'
+        else:
+            url = self.url
+            method = 'POST'
 
-    #     if hasattr(obj, 'encode'):
-    #         body, content_type = obj.encode()
-    #     else:
-    #         body, content_type = escape.json_encode(dict(obj)), 'application/json'
+        data = self.serialize(obj)
 
-    #     self.client.fetch(url, method=method,
-    #         headers={'Content-Type': content_type},
-    #         body=body,
-    #         callback=on_response)
+        request = requests.Request(method, url,
+            data=json.dumps(data),
+            headers={'Content-Type': 'application/json'}
+        )
+
+        response = self.client.fetch(request)
+        print response.text
+
+        if response.status_code >= 400:
+            response.raise_for_status()
+
+        if len(response.content) > 0:
+            data = response.json()
+
+            try:
+                obj.update_from_serialized(data)
+                obj._persisted = True
+            except Exception as error:
+                raise
+
+            return obj
+        else:
+            try:
+                url = response.headers.get('Location')
+            except KeyError:
+                return None
+            id_ = self._parse_url(url)
+            if id_ is not None:
+                for name, field in obj._fields.items():
+                    if field.options.get('primary', False):
+                        setattr(obj, name, id_)
+                        return obj
+            return None
+
 
     def _id(self, obj):
         for name, field in obj._fields.items():
