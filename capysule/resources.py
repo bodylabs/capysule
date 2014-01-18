@@ -23,8 +23,11 @@ class Parties(Collection):
 
     def deserialize(self, response, data, many=False):
         if many:
-            persons = data['parties']['person']
-            return super(Parties, self).deserialize(response, persons, many)
+            person_or_persons = data['parties']['person']
+            if isinstance(person_or_persons, list):
+                return super(Parties, self).deserialize(response, person_or_persons, many=True)
+            else:
+                return [super(Parties, self).deserialize(response, person_or_persons, many=False)]
         else:
             person = data['person']
             return super(Parties, self).deserialize(response, person, many)

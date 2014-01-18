@@ -9,7 +9,7 @@ def main():
     from wren.client import Client
     from capysule.resources import Parties
 
-    client = Client('https://bodylabs.capsulecrm.com')
+    client = Client("https://%s.capsulecrm.com" % os.environ['CAPSULE_SITE'])
     client.set_basic_auth(os.environ['CAPSULE_API_TOKEN'], 'x')
     client.set_headers({'Accept': 'application/json'})
 
@@ -18,8 +18,11 @@ def main():
     print result[0]
     print result[0].id
 
-    aaron = parties.get(52082372)
-    print aaron
+    # aaron = parties.get(52082372)
+    # print aaron
+
+    paul = parties.get(54607911)
+    print paul
 
 if __name__ == '__main__':
     main()
