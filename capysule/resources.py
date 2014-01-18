@@ -1,6 +1,6 @@
-import json
 from booby import Model, fields
 from wren.collection import Collection
+
 
 class Person(Model):
     id = fields.Integer(primary=True)
@@ -27,6 +27,7 @@ class Persons(Collection):
 
     def serialize(self, obj):
         return {'person': dict(obj)}
+
 
 class Parties(Collection):
     '''

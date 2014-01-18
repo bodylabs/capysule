@@ -6,12 +6,10 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 def main():        
-    from wren.client import Client
+    from capysule.client import Client
     from capysule.resources import Parties, Person
 
-    client = Client("https://%s.capsulecrm.com" % os.environ['CAPSULE_SITE'])
-    client.set_basic_auth(os.environ['CAPSULE_API_TOKEN'], 'x')
-    client.set_headers({'Accept': 'application/json'})
+    client = Client()
 
     parties = Parties(client)
     result = parties.all()
