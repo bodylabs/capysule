@@ -21,7 +21,10 @@ class Parties(Collection):
     def url(self):
         return '/api/party'
 
-    def deserialize(self, response, data, many):
-        parties = data['parties']
-        persons = parties['person']
-        return super(Parties, self).deserialize(response, persons, many)
+    def deserialize(self, response, data, many=False):
+        if many:
+            persons = data['parties']['person']
+            return super(Parties, self).deserialize(response, persons, many)
+        else:
+            person = data['person']
+            return super(Parties, self).deserialize(response, person, many)

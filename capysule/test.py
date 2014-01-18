@@ -15,7 +15,11 @@ def main():
 
     parties = Parties(client)
     result = parties.all()
-    print result
+    print result[0]
+    print result[0].id
+
+    aaron = parties.get(52082372)
+    print aaron
 
 if __name__ == '__main__':
     main()

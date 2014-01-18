@@ -1,3 +1,4 @@
+from urllib import splitquery
 from wren import errors
 
 
@@ -7,15 +8,16 @@ class Collection(object):
     def __init__(self, client):
         self.client = client
 
-    def deserialize(self, response, data, many):
-        result = []
-
-        for d in data:
-            obj = self.model.from_dict(d)
-            obj._persisted = True
-            result.append(obj)
-
-        return result
+    def deserialize(self, response, data, many=False):
+        if many:
+            result = []
+            for d in data:
+                obj = self.model.from_dict(d)
+                obj._persisted = True
+                result.append(obj)
+            return result
+        else:
+            return self.model.from_dict(data)
 
     def all(self):
         response = self.client.fetch(self.url)
@@ -27,28 +29,15 @@ class Collection(object):
 
         return self.deserialize(response, data=data, many=True)
 
-    # def get(self, id_, callback):
-    #     def on_response(response):
-    #         if response.code >= httplib.BAD_REQUEST:
-    #             callback(None, errors.HTTPError(response.code))
-    #             return
+    def get(self, id_):
+        response = self.client.fetch(self._url(id_))
 
-    #         result = self.model()
+        if response.status_code >= 400:
+            response.raise_for_status()
 
-    #         if hasattr(result, 'parse'):
-    #             resource = result.parse(response.body, response.headers)
-    #         else:
-    #             resource = escape.json_decode(response.body)
+        data = response.json()
 
-    #         try:
-    #             result.update(resource)
-    #         except Exception as error:
-    #             callback(None, error)
-    #         else:
-    #             result._persisted = True
-    #             callback(result, None)
-
-    #     self.client.fetch(self._url(id_), callback=on_response)
+        return self.deserialize(response, data=data)
 
     def _url(self, id_):
         url = getattr(self.model, '_url', self.url)
