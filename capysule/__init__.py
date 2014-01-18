@@ -1,9 +1,7 @@
 from .client import Client
 client = Client()
 
-from .resources import Persons as _Persons
-from .resources import Parties as _Parties
-Persons = _Persons(client)
-Parties = _Parties(client)
-
-from .resources import Person
+from .resources import parties
+Person = parties.Person
+Persons = parties.Persons(client)
+Parties = parties.Parties(client)
