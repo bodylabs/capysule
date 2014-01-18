@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import sys
 # fix sys path so we don't need to setup PYTHONPATH

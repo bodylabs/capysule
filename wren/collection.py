@@ -7,32 +7,25 @@ class Collection(object):
     def __init__(self, client):
         self.client = client
 
+    def deserialize(self, response, data, many):
+        result = []
+
+        for d in data:
+            obj = self.model.from_dict(d)
+            obj._persisted = True
+            result.append(obj)
+
+        return result
+
     def all(self):
         response = self.client.fetch(self.url)
 
         if response.status_code >= 400:
             response.raise_for_status()
 
-        if hasattr(self, 'parse'):
-            collection = self.parse(response)
-        else:
-            collection = escape.json_decode(response.body)
+        data = response.json()
 
-        if not isinstance(collection, list):
-            raise ValueError("""
-                The response body was expected to be a JSON array.
-
-                To properly process the response you should define a
-                `parse(raw)` method in your `Collection` class.""")
-
-        result = []
-
-        for r in collection:
-            obj = self.model(**r)
-            obj._persisted = True
-            result.append(obj)
-
-        return result
+        return self.deserialize(response, data=data, many=True)
 
     # def get(self, id_, callback):
     #     def on_response(response):

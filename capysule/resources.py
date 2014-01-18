@@ -4,16 +4,14 @@ from wren.collection import Collection
 
 class Person(Model):
     id = fields.Integer()
-    first_name = fields.String()
-    last_name = fields.String()
-    created_on = fields.String()
-    updated_on = fields.String()
-
-    def parse(self, response):
-        return parse_party(response.json())
+    first_name = fields.String(source='firstName')
+    last_name = fields.String(source='lastName')
+    created_on = fields.String(source='createdOn')
+    updated_on = fields.String(source='updatedOn')
 
     def __repr__(self):
-        return 'Person({} {})'.format(self.first_name, self.last_name)
+        name_parts = [ s for s in self.first_name, self.last_name if s is not None ]
+        return 'Person({})'.format(' '.join(name_parts))
 
 
 class Parties(Collection):
@@ -23,17 +21,7 @@ class Parties(Collection):
     def url(self):
         return '/api/party'
 
-    def parse(self, response):
-        parties = response.json()['parties']
-        return [parse_party(r) for r in parties['person']]
-
-
-def parse_party(raw):
-    mapping = {
-        'id': 'id',
-        'first_name': 'firstName',
-        'last_name': 'lastName',
-        'created_on': 'createdOn',
-        'updated_on': 'updatedOn',
-    }
-    return { k: raw[mapping[k]] for k in mapping if mapping[k] in raw }
+    def deserialize(self, response, data, many):
+        parties = data['parties']
+        persons = parties['person']
+        return super(Parties, self).deserialize(response, persons, many)
