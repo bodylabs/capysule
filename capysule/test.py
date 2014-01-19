@@ -23,5 +23,14 @@ def main():
     history_item.party = new_contact
     capysule.History.add(history_item)
 
+    case = capysule.Case(name='New User')
+    case.party = new_contact
+    capysule.Cases.add(case)
+
+    history_item = capysule.HistoryItem(note='User registered for BodyHub')
+    history_item.case = case
+    capysule.History.add(history_item)
+
+
 if __name__ == '__main__':
     main()
