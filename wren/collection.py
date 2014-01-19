@@ -78,7 +78,9 @@ class Collection(object):
             url = self._url(self._id(obj))
             method = 'PUT'
         else:
-            url = self.url
+            url = getattr(obj, '_url', self.url)
+            if callable(url):
+                url = url()
             method = 'POST'
 
         data = self.serialize(obj)
@@ -89,7 +91,6 @@ class Collection(object):
         )
 
         response = self.client.fetch(request)
-        print response.text
 
         if response.status_code >= 400:
             response.raise_for_status()

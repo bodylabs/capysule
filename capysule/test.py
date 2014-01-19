@@ -11,9 +11,6 @@ def main():
     print result[0]
     print result[0].id
 
-    # aaron = parties.get(52082372)
-    # print aaron
-
     paul = capysule.Parties.get(54607911)
     print paul
 
@@ -21,6 +18,10 @@ def main():
     capysule.Parties.add(new_contact)
     print new_contact
     print new_contact.id
+
+    history_item = capysule.HistoryItem(note='This is a note.')
+    history_item.party = new_contact
+    capysule.History.add(history_item)
 
 if __name__ == '__main__':
     main()
