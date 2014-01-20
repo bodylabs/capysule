@@ -1,3 +1,5 @@
+version = '0.1.2'
+
 # https://coderwall.com/p/qawuyq
 # Thanks James.
 
@@ -16,7 +18,7 @@ from setuptools import setup
 
 setup(
     name='capysule',
-    version=__import__('capysule').__version__,
+    version=version,
     author='Body Labs',
     author_email='paul.melnikow@bodylabs.com',
     description='Bindings for Capsule CRM based on Requests and Booby',
