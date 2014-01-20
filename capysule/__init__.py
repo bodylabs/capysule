@@ -1,7 +1,10 @@
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 from .client import Client
-client = Client()
+try:
+    client = Client()
+except KeyError:
+    pass
 
 from .resources import parties
 Person = parties.Person
