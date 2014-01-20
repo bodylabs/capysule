@@ -27,6 +27,7 @@ setup(
     license='Apache 2',
     packages=[
         'capysule',
+        'wren',
     ],
     install_requires=install_requires,
     classifiers=[
