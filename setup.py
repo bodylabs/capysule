@@ -10,7 +10,7 @@ except (IOError, ImportError):
 # with open('requirements.txt', 'r') as f:
 #     install_requires = [x.strip() for x in f.readlines()]
 # Need to sort out how to distribute the Booby fork
-install_requires = ['booby']
+install_requires = ['requests']
 
 from setuptools import setup
 
