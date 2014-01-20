@@ -1,7 +1,6 @@
 import json, requests
 from urllib import splitquery
 from urlparse import urlparse as parse
-from wren import errors
 
 
 class Collection(object):
