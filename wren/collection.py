@@ -34,6 +34,20 @@ class Collection(object):
 
         return self.deserialize(response, data=data, many=True)
 
+    def query(self, **kwargs):
+        request = requests.Request('GET', url,
+            params=kwargs,
+            headers={'Content-Type': 'application/json'}
+        )
+        response = self.client.fetch(request)
+
+        if response.status_code >= 400:
+            response.raise_for_status()
+
+        data = response.json()
+
+        return self.deserialize(response, data=data, many=True)
+
     def get(self, id_):
         response = self.client.fetch(self._url(id_))
 

@@ -31,6 +31,8 @@ def main():
     history_item.case = case
     capysule.History.add(history_item)
 
+    result = capysule.Parties.query(email='email@paulmelnikow.com')
+    print result
 
 if __name__ == '__main__':
     main()
