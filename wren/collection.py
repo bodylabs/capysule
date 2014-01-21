@@ -119,7 +119,7 @@ class Collection(object):
             data = response.json()
 
             try:
-                obj.update_from_serialized(data)
+                obj.deserialize(data)
                 obj._persisted = True
             except Exception as error:
                 raise

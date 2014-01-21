@@ -13,3 +13,7 @@ History = history.History(client)
 from .resources import cases
 Case = cases.Case
 Cases = cases.Cases(client)
+
+from .resources import custom_fields
+CustomField = custom_fields.CustomField
+CustomFields = custom_fields.CustomFields(client)
