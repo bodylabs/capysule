@@ -41,11 +41,18 @@ class Client(object):
             logger.debug(request.auth)
         logger.debug('-------------------')
 
+    def log_response(self, response):
+        import logging
+        logger = logging.getLogger('dj_capysule')
+        logger.debug('===================')
+        logger.debug(response.text)
+        logger.debug('===================')
+
     def fetch(self, request):
         if isinstance(request, basestring):
             joined = urlparse.urljoin(self.base_uri, request)
             self.log_request(joined)
-            return self.session.get(joined)
+            response = self.session.get(joined)
         elif isinstance(request, requests.Request):
             request.url = urlparse.urljoin(self.base_uri, request.url)
             request.auth = self.session.auth
@@ -54,6 +61,8 @@ class Client(object):
             request.headers = headers
             self.log_request(request)
             prepared = request.prepare()
-            return self.session.send(prepared)
+            response = self.session.send(prepared)
         else:
             raise TypeError('Request should be an instance of request.Request or a string')
+        self.log_response(response)
+        return response
