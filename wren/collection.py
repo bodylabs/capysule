@@ -9,6 +9,13 @@ class Collection(object):
     def __init__(self, client):
         self.client = client
 
+    def handle_error(self, response):
+        from requests import Request
+        import logging
+        logger = logging.getLogger('dj_capysule')
+        logger.error(response.text)
+        response.raise_for_status()
+
     def deserialize(self, response, data, many=False):
         if many:
             result = []
@@ -27,7 +34,7 @@ class Collection(object):
         response = self.client.fetch(self.url)
 
         if response.status_code >= 400:
-            response.raise_for_status()
+            self.handle_error(response)
 
         data = response.json()
 
@@ -41,7 +48,7 @@ class Collection(object):
         response = self.client.fetch(request)
 
         if response.status_code >= 400:
-            response.raise_for_status()
+            self.handle_error(response)
 
         data = response.json()
 
@@ -51,7 +58,7 @@ class Collection(object):
         response = self.client.fetch(self._url(id_))
 
         if response.status_code >= 400:
-            response.raise_for_status()
+            self.handle_error(response)
 
         data = response.json()
 
@@ -106,7 +113,7 @@ class Collection(object):
         response = self.client.fetch(request)
 
         if response.status_code >= 400:
-            response.raise_for_status()
+            self.handle_error(response)
 
         if len(response.content) > 0:
             data = response.json()

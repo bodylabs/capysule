@@ -23,9 +23,28 @@ class Client(object):
             self._session = requests.Session()
         return self._session
 
+    def log_request(self, request):
+        import logging
+        logger = logging.getLogger('dj_capysule')
+        logger.debug('-------------------')
+        if isinstance(request, basestring):
+            logger.debug('GET %s' % request)
+        else:
+            logger.debug('%s %s' % (request.method, request.url))
+            logger.debug('Headers')
+            logger.debug(request.headers)
+            logger.debug('Params')
+            logger.debug(request.params)
+            logger.debug('Data')
+            logger.debug(request.data)
+            logger.debug('Auth')
+            logger.debug(request.auth)
+        logger.debug('-------------------')
+
     def fetch(self, request):
         if isinstance(request, basestring):
             joined = urlparse.urljoin(self.base_uri, request)
+            self.log_request(joined)
             return self.session.get(joined)
         elif isinstance(request, requests.Request):
             request.url = urlparse.urljoin(self.base_uri, request.url)
@@ -33,6 +52,7 @@ class Client(object):
             headers = self._headers
             headers.update(request.headers)
             request.headers = headers
+            self.log_request(request)
             prepared = request.prepare()
             return self.session.send(prepared)
         else:
