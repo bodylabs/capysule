@@ -8,7 +8,7 @@ data-modeling and validation framework [Booby][].
 Development
 -----------
 
-Create .env with `CAPSULE_API_TOKEN`
+Create .env with `CAPSULE_SITE` and `CAPSULE_API_TOKEN`
 
     virtualenv venv
     source venv/bin/activate
