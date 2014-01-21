@@ -34,7 +34,7 @@ class Collection(object):
         return self.deserialize(response, data=data, many=True)
 
     def query(self, **kwargs):
-        request = requests.Request('GET', url,
+        request = requests.Request('GET', self.url,
             params=kwargs,
             headers={'Content-Type': 'application/json'}
         )
