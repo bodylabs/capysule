@@ -15,6 +15,7 @@ def main():
     print paul
 
     new_contact = capysule.Person(first_name='Joe', last_name='Test')
+    new_contact.set_email_address('foo@bar.com')
     capysule.Parties.add(new_contact)
     print new_contact
     print new_contact.id

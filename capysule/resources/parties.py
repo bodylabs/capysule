@@ -44,6 +44,21 @@ class Person(Model):
     created_on = fields.String(source='createdOn', read_only=True)
     updated_on = fields.String(source='updatedOn', read_only=True)
 
+    def set_email_address(self, email_address):
+        '''
+        Convenience method sets email address.
+
+        This just modifies the instance. It's the caller's
+        responsibility to persist the change by re-adding
+        the object.
+
+        '''
+        if self.contacts is None:
+            self.contacts = self.Contacts()
+        if self.contacts.email is None:
+            self.contacts.email = self.Contacts.Email()
+        self.contacts.email.email_address = email_address
+
     def __repr__(self):
         name_parts = [ s for s in self.first_name, self.last_name if s is not None ]
         return 'Person({})'.format(' '.join(name_parts))
