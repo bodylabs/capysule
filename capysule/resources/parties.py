@@ -97,7 +97,7 @@ class Parties(Collection):
                 return [super(Parties, self).deserialize(response, person_or_persons, many=False)]
         else:
             person = data['person']
-            return super(Parties, self).deserialize(response, person, many)
+            return super(Parties, self).deserialize(response, person, many=False)
 
     def add(self, obj):
         if isinstance(obj, Person):
