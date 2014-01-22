@@ -26,7 +26,7 @@ class Case(Model):
 
 class Cases(Collection):
     model = Case
-    url = None
+    url = '/api/kase'
 
     def serialize(self, obj):
         return {'kase': dict(obj)}
