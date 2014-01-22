@@ -65,12 +65,10 @@ class Collection(object):
         return self.deserialize(response, data=data)
 
     def _url(self, id_):
-        url = getattr(self.model, '_url', self.url)
+        url = self.url
 
         if callable(url):
            return url(id_)
-
-
 
         url, query = splitquery(url)
 
