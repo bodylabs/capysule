@@ -89,7 +89,7 @@ class Parties(Collection):
         self.persons = Persons(*args, **kwargs)
 
     def deserialize(self, response, data, many=False):
-        if data['parties'].get('@size') == '0':
+        if data.get('parties') and data['parties'].get('@size') == '0':
             return [] if many else None
         if many:
             person_or_persons = data['parties']['person']
