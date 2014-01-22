@@ -28,6 +28,8 @@ def main():
     case.party = new_contact
     capysule.Cases.add(case)
 
+    print capysule.Cases.all()
+
     history_item = capysule.HistoryItem(note='User registered for BodyHub')
     history_item.case = case
     capysule.History.add(history_item)
