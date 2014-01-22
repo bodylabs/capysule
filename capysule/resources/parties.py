@@ -92,14 +92,14 @@ class Parties(Collection):
         if data.get('parties') and data['parties'].get('@size') == '0':
             return [] if many else None
         if many:
-            person_or_persons = data['parties']['person']
-            if isinstance(person_or_persons, list):
-                return super(Parties, self).deserialize(response, person_or_persons, many=True)
+            obj_or_list = data['parties']['person']
+            if isinstance(obj_or_list, list):
+                return super(Parties, self).deserialize(response, obj_or_list, many=True)
             else:
-                return [super(Parties, self).deserialize(response, person_or_persons, many=False)]
+                return [super(Parties, self).deserialize(response, obj_or_list, many=False)]
         else:
-            person = data['person']
-            return super(Parties, self).deserialize(response, person, many=False)
+            obj = data['person']
+            return super(Parties, self).deserialize(response, obj, many=False)
 
     def add(self, obj):
         if isinstance(obj, Person):

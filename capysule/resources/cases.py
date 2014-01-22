@@ -30,3 +30,17 @@ class Cases(Collection):
 
     def serialize(self, obj):
         return {'kase': dict(obj)}
+
+    def deserialize(self, response, data, many=False):
+        if data.get('kases') and data['kases'].get('@size') == '0':
+            return [] if many else None
+        if many:
+            obj_or_list = data['kases']['kase']
+            if isinstance(obj_or_list, list):
+                return super(Cases, self).deserialize(response, obj_or_list, many=True)
+            else:
+                return [super(Cases, self).deserialize(response, obj_or_list, many=False)]
+        else:
+            obj = data['kase']
+            return super(Cases, self).deserialize(response, obj, many=False)
+
