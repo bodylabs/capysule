@@ -20,6 +20,10 @@ def main():
     print new_contact
     print new_contact.id
 
+    tag = capysule.Tag(name='MyTag')
+    tag.party = new_contact
+    capysule.Tags.add(tag)
+
     history_item = capysule.HistoryItem(note='This is a note.')
     history_item.party = new_contact
     capysule.History.add(history_item)

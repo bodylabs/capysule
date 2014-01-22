@@ -17,3 +17,7 @@ Cases = cases.Cases(client)
 from .resources import custom_fields
 CustomField = custom_fields.CustomField
 CustomFields = custom_fields.CustomFields(client)
+
+from .resources import tags
+Tag = tags.Tag
+Tags = tags.Tags(client)
