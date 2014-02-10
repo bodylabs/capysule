@@ -3,11 +3,11 @@ from nose.plugins.attrib import attr
 
 class TestParties(unittest.TestCase):
 
-    def setUp(self):
-        import logging
-        logger = logging.getLogger('dj_capysule')
-        logger.addHandler(logging.StreamHandler())
-        logger.setLevel(logging.DEBUG)
+    # def setUp(self):
+    #     import logging
+    #     logger = logging.getLogger('dj_capysule')
+    #     logger.addHandler(logging.StreamHandler())
+    #     logger.setLevel(logging.DEBUG)
 
     def test_that_person_deserializes(self):
         sample_person = '''
@@ -85,8 +85,14 @@ class TestParties(unittest.TestCase):
     @attr('integration')
     def test_create_and_read_person(self):
         import capysule
-        new_contact = capysule.Person(first_name='Bilbo', last_name='Baggins')
-        new_contact.set_email_address('bilbo@shire.com')
-        capysule.Parties.add(new_contact)
-        self.assertIsInstance(new_contact.id, basestring)
-        self.assertGreater(len(new_contact.id), 0)
+        
+        new_person = capysule.Person(first_name='Bilbo', last_name='Baggins')
+        new_person.set_email_address('bilbo@shire.com')
+        capysule.Parties.add(new_person)
+        self.assertIsInstance(new_person.id, basestring)
+        self.assertGreater(len(new_person.id), 0)
+
+        fetched_person = capysule.Parties.get(new_person.id)
+        self.assertEquals(fetched_person.first_name, 'Bilbo')
+        self.assertEquals(fetched_person.last_name, 'Baggins')
+        self.assertEquals(fetched_person.contacts.email.email_address, 'bilbo@shire.com')
