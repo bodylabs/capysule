@@ -9,7 +9,7 @@ class HistoryItem(Model):
     subject = fields.String()
     note = fields.String()
 
-    entry_date = fields.String(source='entryDate', read_only=True)
+    entry_date = fields.String(name='entryDate', read_only=True)
     creator = fields.String(read_only=True)
     creator_name = fields.String(read_only=True)
 

@@ -8,10 +8,10 @@ class Case(Model):
     name = fields.String(required=True)
     description = fields.String()
     owner = fields.String()
-    close_date = fields.String(source='closeDate')
+    close_date = fields.String(name='closeDate')
 
-    created_on = fields.String(source='createdOn', read_only=True)
-    updated_on = fields.String(source='updatedOn', read_only=True)
+    created_on = fields.String(name='createdOn', read_only=True)
+    updated_on = fields.String(name='updatedOn', read_only=True)
 
     party = None
 

@@ -6,9 +6,9 @@ from wren.collection import Collection
 class CustomField(Model):
     tag = fields.String()
     label = fields.String()
-    string_value = fields.String(source='text')
-    date_value = fields.String(source='date')
-    boolean_value = fields.Boolean(source='boolean')
+    string_value = fields.String(name='text')
+    date_value = fields.String(name='date')
+    boolean_value = fields.Boolean(name='boolean')
 
     party = None
     opportunity = None
