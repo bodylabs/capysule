@@ -14,18 +14,18 @@ class Person(Model):
 
         class Email(Model):
             type = fields.String()
-            email_address = fields.String(source='emailAddress')
+            email_address = fields.String(name='emailAddress')
 
         class Phone(Model):
             type = fields.String()
-            phone_number = fields.String(source='phoneNumber')
+            phone_number = fields.String(name='phoneNumber')
 
         class Website(Model):
             type = fields.String()
-            web_service = fields.String(source='webService',
+            web_service = fields.String(name='webService',
                 choices='URL SKYPE TWITTER FACEBOOK LINKED_IN XING FEED GOOGLE_PLUS FLICKR GITHUB YOUTUBE'.split(' ')
             )
-            web_address = fields.String(source='webAddress')
+            web_address = fields.String(name='webAddress')
 
         address = fields.Embedded(Address)
         email = fields.Embedded(Email)
@@ -34,15 +34,15 @@ class Person(Model):
 
     id = fields.Integer(primary=True)
     title = fields.String()
-    first_name = fields.String(source='firstName')
-    last_name = fields.String(source='lastName')
-    job_title = fields.String(source='jobTitle')
-    organisation_name = fields.String(source='organisationName')
+    first_name = fields.String(name='firstName')
+    last_name = fields.String(name='lastName')
+    job_title = fields.String(name='jobTitle')
+    organisation_name = fields.String(name='organisationName')
     contacts = fields.Embedded(Contacts)
     about = fields.String()
 
-    created_on = fields.String(source='createdOn', read_only=True)
-    updated_on = fields.String(source='updatedOn', read_only=True)
+    created_on = fields.String(name='createdOn', read_only=True)
+    updated_on = fields.String(name='updatedOn', read_only=True)
 
     def set_email_address(self, email_address):
         '''
@@ -73,7 +73,7 @@ class Persons(Collection):
     url = '/api/person'
 
     def serialize(self, obj):
-        return {'person': dict(obj)}
+        return {'person': super(Persons, self).serialize(obj)}
 
 
 class Parties(Collection):

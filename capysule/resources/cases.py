@@ -29,7 +29,7 @@ class Cases(Collection):
     url = '/api/kase'
 
     def serialize(self, obj):
-        return {'kase': dict(obj)}
+        return {'kase': super(Cases, self).serialize(obj)}
 
     def deserialize(self, response, data, many=False):
         if data.get('kases') and data['kases'].get('@size') == '0':

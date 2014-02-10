@@ -20,15 +20,15 @@ class Collection(object):
         if many:
             result = []
             for d in data:
-                obj = self.model.from_dict(d)
+                obj = self.model(**self.model.deserialize(d))
                 obj._persisted = True
                 result.append(obj)
             return result
         else:
-            return self.model.from_dict(data)
+            return self.model(**self.model.deserialize(data))
 
     def serialize(self, obj):
-        return dict(obj)
+        return obj.serialize()
 
     def all(self):
         response = self.client.fetch(self.url)

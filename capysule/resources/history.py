@@ -38,4 +38,4 @@ class History(Collection):
     url = None
 
     def serialize(self, obj):
-        return {'historyItem': dict(obj)}
+        return {'historyItem': super(History, self).serialize(obj)}

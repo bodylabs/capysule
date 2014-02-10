@@ -38,4 +38,4 @@ class Tags(Collection):
     url = None
 
     def serialize(self, obj):
-        return {'tags': {'tag': dict(obj)}}
+        return {'tags': {'tag': super(Tags, self).serialize(obj)}}

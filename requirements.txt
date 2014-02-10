@@ -1,2 +1,2 @@
 requests
--e git+https://github.com/bodylabs/booby@0.5.0+patched#egg=booby
+-e git+https://github.com/bodylabs/booby@0.6+bodylabs#egg=booby
