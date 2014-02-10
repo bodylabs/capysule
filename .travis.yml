@@ -1,7 +1,7 @@
 language: python
 python:
 - '2.7'
-before_install: gem install rake
+before_install: rvm use 1.9.3
 install: rake install
 script: rake test
 env:
