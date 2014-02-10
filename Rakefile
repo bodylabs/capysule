@@ -7,6 +7,7 @@ task :create_venv do
 end
 
 task :require_venv_activated do
+    next if ENV.has_key? 'CI'
     unless File.exists? "#{$venv_dir}/bin/activate"
         puts
         puts "Please create a virtual environment."
