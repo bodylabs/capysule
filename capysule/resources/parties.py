@@ -23,7 +23,7 @@ class Person(Model):
         class Website(Model):
             type = fields.String()
             web_service = fields.String(name='webService',
-                choices='URL SKYPE TWITTER FACEBOOK LINKED_IN XING FEED GOOGLE_PLUS FLICKR GITHUB YOUTUBE'.split(' ')
+                choices='URL SKYPE TWITTER FACEBOOK LINKED_IN XING FEED GOOGLE_PLUS FLICKR GITHUB YOUTUBE'.split()
             )
             web_address = fields.String(name='webAddress')
 
