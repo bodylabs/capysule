@@ -1,9 +1,16 @@
 language: python
 python:
-#  - "3.3"
-  - "2.7"
-#  - "2.6"
+- '2.7'
 install:
-- pip install -r requirements_dev.txt
+- gem install rake
+- rake install
 script:
 - rake test
+env:
+  global:
+  - secure: MBRr9oJM3r6d1JUnx8iYyCgqKuaZ5O1jdIzhe3jjFkXf9CALS2EsGncq7Zx/hK3seHYniadGIZHhMjnrPRN+ZD7pa46VviOvbV+VRVRbrIXIVenOjchQvGz7X9Yd9zpSg4t5ZHu07ehvfeU0c5itEdB7v2vWmSKnmKR2bTCNgI8=
+  - secure: UrLGA+RRuASO/edxIE8LaMOKILdtchIWh/sSm1CqXog5p3oQrEbw2xkKBOFM8pc4EJD8UdorLnB3DD8IB4/Ywt0jqzgMYLgIrgjZxKiUm7vINYSl4Ock+Qj0HNMkW7Pj1KKGnX7/9JkFj1GAU0zAs3gKkb0yGDJOhWBdoTVv2lk=
+notifications:
+  hipchat:
+    rooms:
+      secure: nI4ew/8nOiUeFYGCg8GHJznz/R+Coq6bkz+RYAJUqYcYx3lDTnp7zryBPkfRV2PmeAnkB4Y9hnXaQTC2B92aWAgTX1w1fpoGRgCeIP1BpTpwtAfhLGDxowatBO4bYHqfnADIb2pxt9ng6HS74XSgcrMjJXN7ga+dyMJqTlFbBAU=
