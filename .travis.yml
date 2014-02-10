@@ -1,11 +1,9 @@
 language: python
 python:
 - '2.7'
-install:
-- gem install rake
-- rake install
-script:
-- rake test
+before_install: gem install rake
+install: rake install
+script: rake test
 env:
   global:
   - secure: MBRr9oJM3r6d1JUnx8iYyCgqKuaZ5O1jdIzhe3jjFkXf9CALS2EsGncq7Zx/hK3seHYniadGIZHhMjnrPRN+ZD7pa46VviOvbV+VRVRbrIXIVenOjchQvGz7X9Yd9zpSg4t5ZHu07ehvfeU0c5itEdB7v2vWmSKnmKR2bTCNgI8=
