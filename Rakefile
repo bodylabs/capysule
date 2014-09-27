@@ -31,29 +31,6 @@ task :install => :require_venv_activated do
     raise unless system("pip install -r requirements_dev.txt")
 end
 
-# desc "Install dependencies for integration testing"
-# task :install_integration => :install do
-#     if $mac_os
-#         # Homebrew deps for doc gen and integration tests
-#         raise unless system("brew update")
-#         raise unless system("brew install chromedriver")
-#     end
-
-#     # Deps for building Fine Uploader for integration tests
-#     raise unless system("npm install -g grunt-cli")
-
-#     if not $mac_os
-#         puts
-#         puts "Installation complete."
-#         puts
-#         puts "You must install:"
-#         puts
-#         puts " - chromedriver"
-#         puts
-#         raise
-#     end
-# end
-
 desc "Install dependencies for distribution"
 task :install_dist => :install do
     if $mac_os
@@ -82,24 +59,6 @@ task :test => :require_venv_activated do
         maybe_foreman_run = ''
     end
     raise unless system("#{maybe_foreman_run} nosetests -s")
-end
-
-task :integration => :require_venv_activated do
-    unless command_is_in_path?('foreman')
-        puts
-        puts "Please install `foreman`."
-        puts
-        puts "Via RubyGems:"
-        puts
-        puts "\tgem install foreman"
-        puts
-        puts "Or via Heroku Toolbelt:"
-        puts
-        puts "\thttps://toolbelt.heroku.com/"
-        puts
-        raise
-    end
-    raise unless system("foreman run drf_to_s3/runtests/runtests.py integration")
 end
 
 desc "Remove .pyc files"
