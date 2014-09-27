@@ -96,3 +96,11 @@ class TestParties(unittest.TestCase):
         self.assertEquals(fetched_person.first_name, 'Bilbo')
         self.assertEquals(fetched_person.last_name, 'Baggins')
         self.assertEquals(fetched_person.contacts.email.email_address, 'bilbo@shire.com')
+
+    @attr('integration')
+    def test_read_nonexistent_person(self):
+        import capysule, uuid
+        from ...collection import NotFound
+
+        with self.assertRaises(NotFound) as ctx:
+            capysule.Parties.get(str(uuid.uuid4()))

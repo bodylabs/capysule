@@ -1,6 +1,6 @@
 from booby import Model, fields
 from booby.errors import ValidationError
-from wren.collection import Collection
+from ..collection import Collection
 
 
 class HistoryItem(Model):

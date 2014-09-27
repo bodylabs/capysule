@@ -1,5 +1,5 @@
 from booby import Model, fields
-from wren.collection import Collection
+from ..collection import Collection
 
 
 class Person(Model):        
