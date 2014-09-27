@@ -10,7 +10,6 @@ class Collection(object):
         self.client = client
 
     def handle_error(self, response):
-        from requests import Request
         import logging
         logger = logging.getLogger('dj_capysule')
         logger.error(response.text)
