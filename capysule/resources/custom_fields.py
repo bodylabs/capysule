@@ -33,4 +33,4 @@ class CustomFields(Collection):
     url = None
 
     def serialize(self, obj):
-        return {'customFields': {'customField': super(CustomFields, self).serialize(obj)}}
+        return {'customFields': {'customField': [super(CustomFields, self).serialize(obj)]}}
