@@ -10,4 +10,4 @@ class Collection(WrenCollection):
         if response.status_code == requests.codes.not_found and response.json() == {'message': 'Could not find resource'}:
                 raise NotFound(response.text)
         else:
-            super(self, Collection).handle_error(response)
+            super(Collection, self).handle_error(response)
