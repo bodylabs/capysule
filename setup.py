@@ -1,4 +1,4 @@
-version = '0.1.2'
+version = '0.3.1'
 
 # https://coderwall.com/p/qawuyq
 # Thanks James.
@@ -23,7 +23,7 @@ setup(
     author_email='paul.melnikow@bodylabs.com',
     description='Bindings for Capsule CRM based on Requests and Booby',
     long_description=long_description,
-    url='https://bitbucket.org/bodylabs/capysule',
+    url='https://github.com/bodylabs/capysule',
     license='Apache 2',
     packages=[
         'capysule',
