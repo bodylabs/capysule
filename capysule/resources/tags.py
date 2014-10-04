@@ -37,5 +37,5 @@ class Tags(Collection):
     model = Tag
     url = None
 
-    def serialize(self, obj):
-        return {'tags': {'tag': super(Tags, self).serialize(obj)}}
+    def encode(self, obj):
+        return {'tags': {'tag': super(Tags, self).encode(obj)}}

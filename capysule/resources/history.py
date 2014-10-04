@@ -37,5 +37,5 @@ class History(Collection):
     model = HistoryItem
     url = None
 
-    def serialize(self, obj):
-        return {'historyItem': super(History, self).serialize(obj)}
+    def encode(self, obj):
+        return {'historyItem': super(History, self).encode(obj)}

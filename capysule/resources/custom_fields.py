@@ -27,11 +27,11 @@ class CustomField(Model):
         elif self.case:
             return '/api/kase/%s/customfields' % self.case.id
 
-    def serialize(self):
+    def encode(self):
         '''
         Exclude extra fields of None value
         '''
-        result = super(CustomField, self).serialize()
+        result = super(CustomField, self).encode()
 
         return {k:v for k,v in result.iteritems() if v}
 
@@ -39,5 +39,5 @@ class CustomFields(Collection):
     model = CustomField
     url = None
 
-    def serialize(self, obj):
-        return {'customFields': {'customField': [super(CustomFields, self).serialize(obj)]}}
+    def encode(self, obj):
+        return {'customFields': {'customField': [super(CustomFields, self).encode(obj)]}}

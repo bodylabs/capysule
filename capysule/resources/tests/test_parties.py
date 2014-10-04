@@ -9,7 +9,7 @@ class TestParties(unittest.TestCase):
     #     logger.addHandler(logging.StreamHandler())
     #     logger.setLevel(logging.DEBUG)
 
-    def test_that_person_deserializes(self):
+    def test_that_person_decodes(self):
         sample_person = '''
         {
           "parties": {
@@ -57,7 +57,7 @@ class TestParties(unittest.TestCase):
         import capysule, json
         from capysule.resources import parties
 
-        result = capysule.Parties.deserialize(None, json.loads(sample_person), many=True)
+        result = capysule.Parties.decode(json.loads(sample_person), many=True)
         self.assertIsInstance(result, list)
         self.assertEquals(len(result), 1)
 

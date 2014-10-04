@@ -72,8 +72,8 @@ class Persons(Collection):
     model = Person
     url = '/api/person'
 
-    def serialize(self, obj):
-        return {'person': super(Persons, self).serialize(obj)}
+    def encode(self, obj):
+        return {'person': super(Persons, self).encode(obj)}
 
 
 class Parties(Collection):
@@ -88,18 +88,18 @@ class Parties(Collection):
         super(Parties, self).__init__(*args, **kwargs)
         self.persons = Persons(*args, **kwargs)
 
-    def deserialize(self, response, data, many=False):
+    def decode(self, data, many=False):
         if data.get('parties') and data['parties'].get('@size') == '0':
             return [] if many else None
         if many:
             obj_or_list = data['parties']['person']
             if isinstance(obj_or_list, list):
-                return super(Parties, self).deserialize(response, obj_or_list, many=True)
+                return super(Parties, self).decode(obj_or_list, many=True)
             else:
-                return [super(Parties, self).deserialize(response, obj_or_list, many=False)]
+                return [super(Parties, self).decode(obj_or_list, many=False)]
         else:
             obj = data['person']
-            return super(Parties, self).deserialize(response, obj, many=False)
+            return super(Parties, self).decode(obj, many=False)
 
     def add(self, obj):
         if isinstance(obj, Person):
