@@ -1,9 +1,19 @@
 capysule
 ========
 
+
 Python bindings for the Capsule API, with a synchronous
 [Requests][]-based client modeled on [Finch][], using the
 data-modeling and validation framework [Booby][].
+
+
+Installation
+------------
+
+Install capysule by running:
+
+    pip install capysule
+
 
 Development
 -----------
