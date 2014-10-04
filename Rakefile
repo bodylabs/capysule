@@ -32,12 +32,10 @@ task :install => :require_venv_activated do
 end
 
 desc "Install dependencies for distribution"
-task :install_dist => :install do
+task :install_dist do
     if $mac_os
-        raise unless system("brew update")
-        raise unless system("brew tap phinze/cask")
-        raise unless system("brew install brew-cask")
-        raise unless system("brew cask install pandoc")
+        raise unless system "brew update"
+        raise unless system "brew install pandoc"
     else
         puts
         puts "You must install:"
@@ -46,6 +44,7 @@ task :install_dist => :install do
         puts
         raise
     end
+    Rake::Task['install'].invoke
 end
 
 def command_is_in_path?(command)
