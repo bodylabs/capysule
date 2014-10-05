@@ -1,3 +1,3 @@
 requests
--e git+https://github.com/bodylabs/wren@0.3.2#egg=wren
 -e git+https://github.com/jaimegildesagredo/booby@4a72dbe691e19bd68ae504c00b3c9f6abc8c954a#egg=booby
+wren==0.3.5
