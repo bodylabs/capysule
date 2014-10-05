@@ -6,6 +6,8 @@ Python bindings for the Capsule API, with a synchronous
 [Requests][]-based client modeled on [Finch][], using the
 data-modeling and validation framework [Booby][].
 
+[![Build Status](https://travis-ci.org/bodylabs/capysule.png?branch=master)](https://travis-ci.org/bodylabs/capysule)
+
 
 Installation
 ------------
