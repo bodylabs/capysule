@@ -9,10 +9,8 @@ try:
 except (IOError, ImportError):
    long_description = ''
 
-# with open('requirements.txt', 'r') as f:
-#     install_requires = [x.strip() for x in f.readlines()]
-# Need to sort out how to distribute the Booby fork
-install_requires = ['requests']
+with open('requirements.txt', 'r') as f:
+    install_requires = [x.strip() for x in f.readlines()]
 
 from setuptools import setup
 

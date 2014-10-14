@@ -1,3 +1,3 @@
 requests
 wren==0.3.5
--e git+https://github.com/jaimegildesagredo/booby@79e324c2cc9fcd5463b50021bdadc9dd46c1b4c5#egg=booby
+booby==0.6.0
