@@ -1,4 +1,4 @@
-version = '0.5'
+version = '0.5.1'
 
 # https://coderwall.com/p/qawuyq
 # Thanks James.
@@ -12,7 +12,7 @@ except (IOError, ImportError):
 with open('requirements.txt', 'r') as f:
     install_requires = [x.strip() for x in f.readlines()]
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='capysule',
@@ -23,9 +23,7 @@ setup(
     long_description=long_description,
     url='https://github.com/bodylabs/capysule',
     license='Apache 2',
-    packages=[
-        'capysule',
-    ],
+    packages=find_packages(exclude=['*.tests', '*.tests.*' 'tests.*', 'tests']),
     install_requires=install_requires,
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
